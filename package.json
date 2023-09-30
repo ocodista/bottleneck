@@ -4,8 +4,8 @@
   "type": "module",
   "main": "src/cli.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/index.ts"
+    "example": "bun src/cli.js measure -r bun --output output.txt src/example.js",
+    "example-2": "bun src/cli.js measure -r bun --output output.txt src/example2.js"
   },
   "dependencies": {
     "@babel/traverse": "^7.23.0",

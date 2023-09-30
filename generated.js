@@ -18,5 +18,5 @@ function secondFunction() {
 (async () => {
     await measureTime(firstFunction, 'firstFunction');
     await measureTime(secondFunction, 'secondFunction');
-    Bun.write('test.txt', JSON.stringify(executions));
+    Bun.write('output.txt', JSON.stringify(executions));
 })();

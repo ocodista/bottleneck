@@ -54,4 +54,4 @@ function main() {
   setupProgram();
 }
 
-main();
+main(); 
