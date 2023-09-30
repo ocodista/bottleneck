@@ -4,8 +4,10 @@
   "type": "module",
   "main": "src/cli.js",
   "scripts": {
-    "example": "bun src/cli.js measure -r bun --output output.txt src/example.js",
-    "example-2": "bun src/cli.js measure -r bun --output output.txt src/example2.js"
+    "bun-example": "bun src/cli.js measure -r bun --output output.txt src/example.js",
+    "bun-example-2": "bun src/cli.js measure -r bun --output output.txt src/example2.js",
+    "node-example": "node src/cli.js measure -r node --output output.txt src/example.js",
+    "node-example-2": "node src/cli.js measure -r node --output output.txt src/example2.js"
   },
   "dependencies": {
     "@babel/traverse": "^7.23.0",

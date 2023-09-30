@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fs, { unlinkSync } from 'fs';
 import { parse } from 'espree';
 import estraverse from 'estraverse';
 import { generate } from 'escodegen';
@@ -46,8 +46,9 @@ if (!iifeFound) {
 const modifiedCode = measureTimeFunction + generate(ast);
 fs.writeFileSync('generated.js', modifiedCode);
 
-spawnSync('node', ['generated.js'], { stdio: 'inherit' });
+spawnSync('node', ['generated.js']);
 spawnSync('node', ['generateReport.js'], { stdio: 'inherit' });
+unlinkSync('generated.js')
 
 function getParseOptions() {
   return {

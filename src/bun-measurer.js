@@ -1,6 +1,8 @@
 import { parse } from 'espree';
 import estraverse from 'estraverse';
 import { generate } from 'escodegen';
+import { unlinkSync } from "node:fs";
+
 
 const path = process.argv[2];
 const ouput = process.argv[3] || "output.txt"
@@ -48,6 +50,7 @@ await Bun.write("generated.js", modifiedCode)
 Bun.spawnSync(["bun", "generated.js"])
 const { stdout } = Bun.spawnSync(["bun", "generateReport.js", ouput], { stdio: ['inherit'] })
 console.log(stdout.toString());
+unlinkSync("generated.js")
 
 
 function getParseOptions() {
