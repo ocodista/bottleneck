@@ -11,9 +11,18 @@ Measurer.js is a CLI tool that profiles all JavaScript functions of an input fil
 
 ## Installation
 
-You can install Measurer.js globally with npm:
-```bash
-npm install -g measurer.js
+You can install dependencies with Bun or Node.
+
+**bun**:
+```
+bash
+bun install 
+```
+
+**node**:
+```
+bash
+npm install 
 ```
 
 ## Usage

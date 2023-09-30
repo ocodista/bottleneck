@@ -1,5 +1,5 @@
 {
-  "name": "func-time",
+  "name": "measurer",
   "version": "1.0.0",
   "type": "module",
   "main": "src/cli.js",
