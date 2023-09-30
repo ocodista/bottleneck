@@ -2,7 +2,6 @@
 
 Measurer.js is a CLI tool that profiles all JavaScript functions of an input file and generates a report file. It's built with Node.js and uses the Bun runtime for fast execution.
 
-![Banner](banner.png)
 
 ## Features
 
