@@ -12,11 +12,12 @@ Bottleneck.js is a CLI tool that profiles custom JavaScript functions of an inpu
 
 You can install the CLI globally with:
 
-``` bash
+```bash
 npm i -g .
 ```
 
 Then, to see if it's working you can run:
+
 ```bash
 bn
 ```
@@ -24,7 +25,9 @@ bn
 On your terminal.
 
 **bn** is a shorthand for bottleneck-js.
+
 ## Usage
+
 To measure the execution time of all functions in a file, use the `measure` command:
 
 ```bash
@@ -32,13 +35,15 @@ bn measure <filePath>
 ```
 
 You can specify the output file path with the `-o` or `--output` option:
+
 ```bash
 bn measure <filePath> -o <outputPath>
 ```
 
 ## Contributing
+
 Feel free to contribute with Bottleneck.js if you want.
 
-
 ## License
+
 Bottleneck.js is licensed under the [MIT License](LICENSE).

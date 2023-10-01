@@ -1,11 +1,11 @@
-import chalk from 'chalk'
+import chalk from "chalk";
 
 export const Icons = {
-	CrossFingers: '🤞',
-	Glass: '🔎',
-	Handshake: '🤝',
-	Ok: chalk.green('🗸'),
-	RaisedHand: '✋',
-	WrenchAndHammer: '🛠',
-	Worker: '👷',
-}
+  CrossFingers: "🤞",
+  Glass: "🔎",
+  Handshake: "🤝",
+  Ok: chalk.green("🗸"),
+  RaisedHand: "✋",
+  WrenchAndHammer: "🛠",
+  Worker: "👷",
+};

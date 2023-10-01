@@ -8,4 +8,4 @@ function secondFunction() {
 }
 
 firstFunction();
-secondFunction()
+secondFunction();
