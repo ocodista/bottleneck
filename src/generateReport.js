@@ -29,7 +29,7 @@ function printReport() {
   const executions = JSON.parse(data);
   const sortedExecutions = executions.sort((a, b) => b.duration - a.duration);
   const report = createReport(sortedExecutions);
-  const table = markdownTable([['Function', 'Duration'], ...report]);
+  const table = markdownTable([['function', 'duration'], ...report]);
   console.log(table);
 }
 

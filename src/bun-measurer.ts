@@ -3,9 +3,8 @@ import estraverse from 'estraverse';
 import { generate } from 'escodegen';
 import { unlinkSync } from "node:fs";
 
-
 const path = process.argv[2];
-const ouput = process.argv[3] || "output.txt"
+const output = process.argv[3] || "output.txt"
 
 const inputFile = Bun.file(path)
 const code = await inputFile.text()
@@ -27,7 +26,7 @@ const measureTimeFunction = `
   }
 `;
 
-const writeLogFileFunction = parse(`Bun.write(\'${ouput}\', JSON.stringify(executions));`).body[0];
+const writeLogFileFunction = parse(`Bun.write(\'${output}\', JSON.stringify(executions));`).body[0];
 
 let iifeFound = false;
 
@@ -45,10 +44,16 @@ if (!iifeFound) {
   ast.body.push(writeLogFileFunction);
 }
 
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const modifiedCode = measureTimeFunction + generate(ast);
 await Bun.write("generated.js", modifiedCode)
 Bun.spawnSync(["bun", "generated.js"])
-const { stdout } = Bun.spawnSync(["bun", "generateReport.js", ouput], { stdio: ['inherit'] })
+const { stdout } = Bun.spawnSync(["bun", join(__dirname, "generateReport.js"), output], { stdio: ['inherit'] })
 console.log(stdout.toString());
 unlinkSync("generated.js")
 

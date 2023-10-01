@@ -2,7 +2,7 @@ import fs, { unlinkSync } from 'fs';
 import { parse } from 'espree';
 import estraverse from 'estraverse';
 import { generate } from 'escodegen';
-import { spawnSync } from 'child_process';
+import { spawn, spawnSync } from 'child_process';
 
 const path = process.argv[2];
 const code = fs.readFileSync(path, 'utf8');
@@ -42,13 +42,20 @@ estraverse.traverse(ast, {
 if (!iifeFound) {
   ast.body.push(writeLogFileFunction);
 }
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+import log from './services/log';
+import { Icons } from './constants/icons';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const modifiedCode = measureTimeFunction + generate(ast);
 fs.writeFileSync('generated.js', modifiedCode);
 
-spawnSync('node', ['generated.js']);
-spawnSync('node', ['generateReport.js'], { stdio: 'inherit' });
-unlinkSync('generated.js')
+spawnSync('bun', ['generated.js']);
+log.loading('running', [Icons.RaisedHand, Icons.CrossFingers])
+spawnSync('node', [join(__dirname, 'generateReport.js'), './output.txt'], { stdio: 'inherit' });
 
 function getParseOptions() {
   return {
@@ -96,6 +103,6 @@ function getFunctionName(node) {
 }
 
 function isBuiltInFunction(functionName) {
-  const builtInFunctions = ['setTimeout', 'setInterval', 'setImmediate', 'clearTimeout', 'clearInterval', 'clearImmediate'];
+  const builtInFunctions = ['queueMicrotask', 'resolve', 'setTimeout', 'setInterval', 'setImmediate', 'clearTimeout', 'clearInterval', 'clearImmediate'];
   return builtInFunctions.includes(functionName);
 }

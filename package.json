@@ -1,26 +1,37 @@
 {
-  "name": "measurer",
-  "version": "1.0.0",
+  "name": "bottleneck-js",
+  "version": "1.0.1",
   "type": "module",
-  "main": "src/cli.js",
+  "main": "src/cli.ts",
+  "bin": {
+    "bn": "src/cli.ts"
+  },
   "scripts": {
-    "bun-example": "bun src/cli.js measure -r bun --output output.txt src/example.js",
-    "bun-example-2": "bun src/cli.js measure -r bun --output output.txt src/example2.js",
-    "node-example": "node src/cli.js measure -r node --output output.txt src/example.js",
-    "node-example-2": "node src/cli.js measure -r node --output output.txt src/example2.js"
+    "bun-example": "bun src/cli.ts measure -r bun --output output.txt src/example.js",
+    "bun-example-2": "bun src/cli.ts measure -r bun --output output.txt src/example2.js",
+    "node-example": "node src/cli.ts measure -r node --output output.txt src/example.js",
+    "node-example-2": "node src/cli.ts measure -r node --output output.txt src/example2.js"
   },
   "dependencies": {
     "@babel/traverse": "^7.23.0",
     "bun": "^1.0.3",
+    "cli-chart": "^0.3.1",
+    "cli-spinner": "^0.2.10",
+    "cli-spinners": "^2.9.1",
     "commander": "^11.0.0",
     "escodegen": "^2.1.0",
     "espree": "^9.6.1",
     "estraverse": "^5.3.0",
     "figlet": "^1.6.0",
-    "markdown-table": "^3.0.3"
+    "markdown-table": "^3.0.3",
+    "node-emoji": "^2.1.0"
   },
   "devDependencies": {
+    "@types/cli-spinner": "^0.2.1",
+    "@types/escodegen": "^0.0.8",
+    "@types/estraverse": "^5.1.4",
+    "@types/figlet": "^1.5.6",
     "bun-types": "latest"
   },
-  "module": "src/cli.js"
+  "module": "src/cli.ts"
 }

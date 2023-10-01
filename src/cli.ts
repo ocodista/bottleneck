@@ -1,13 +1,21 @@
+#!/usr/bin/env bun
+
 import { program } from 'commander';
 import chalk from 'chalk';
 import figlet from 'figlet';
 import { spawn } from 'child_process';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const NODE_SCRIPT_PATH = join(__dirname, 'node-esm-measurer.ts');
+const BUN_SCRIPT_PATH = join(__dirname, 'bun-measurer.ts');
 
 const DEFAULT_OUTPUT_PATH = 'output.txt';
 const DEFAULT_RUNTIME = 'node';
 const NODE_RUNTIME = 'node';
-const NODE_SCRIPT_PATH = './src/node-esm-measurer.js';
-const BUN_SCRIPT_PATH = './src/bun-measurer.js';
 
 function printBanner() {
   console.log(
@@ -19,13 +27,13 @@ function printBanner() {
   );
 }
 
-function handleExit(exitCode) {
+function handleExit(exitCode: number) {
   if (exitCode) {
     console.log(chalk.red(`Process exited with code ${exitCode}`));
   }
 }
 
-function measure(filePath, options) {
+function measure(filePath: string, options: { output: string, runtime: "node" | "bun" }) {
   const { output = DEFAULT_OUTPUT_PATH, runtime = DEFAULT_RUNTIME } = options;
   const scriptPath = runtime === NODE_RUNTIME ? NODE_SCRIPT_PATH : BUN_SCRIPT_PATH;
   const proc = spawn(runtime, [scriptPath, filePath, output]);
@@ -34,6 +42,7 @@ function measure(filePath, options) {
     console.log(data.toString());
   });
 
+  proc.stderr.on('data', data => console.log(data.toString()))
   proc.on('exit', handleExit);
 }
 
