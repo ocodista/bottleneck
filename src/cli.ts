@@ -3,7 +3,6 @@
 import { program } from 'commander';
 import chalk from 'chalk';
 import figlet from 'figlet';
-import { spawn } from 'child_process';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
@@ -32,14 +31,8 @@ function handleExit(exitCode: number) {
 function measure(filePath: string, options: { output: string }) {
   const { output = DEFAULT_OUTPUT_PATH } = options;
   const scriptPath = BUN_SCRIPT_PATH;
-  const proc = spawn("bun", [scriptPath, filePath, output]);
-
-  proc.stdout.on('data', (data) => {
-    console.log(data.toString());
-  });
-
-  proc.stderr.on('data', data => console.log(data.toString()))
-  proc.on('exit', handleExit);
+  const {stdout, stderr} = Bun.spawnSync(["bun", scriptPath, filePath, output]);
+  console.log(stdout.toString());
 }
 
 function setupProgram() {
