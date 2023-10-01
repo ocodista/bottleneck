@@ -10,61 +10,48 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const BUN_SCRIPT_PATH = join(__dirname, "bun-measurer.ts");
-
 const DEFAULT_OUTPUT_PATH = "output.txt";
-function printBanner() {
-  console.log(
-    chalk.green(
-      figlet.textSync("bottleneck-js", {
-        horizontalLayout: "full",
-      }),
-    ),
-  );
+
+// eslint-disable-next-line @typescript-eslint/ban-types
+const printInColor = (color: Function, text: string) => console.log(color(text));
+
+const printBanner = () =>
+  printInColor(chalk.green, figlet.textSync("bottleneck-js", { horizontalLayout: "full" }));
+
+const handleExit = (exitCode: number): void => {
+  exitCode && printInColor(chalk.red, `Process exited with code ${exitCode}`);
 }
 
-function handleExit(exitCode: number) {
-  if (!exitCode) return;
-  console.log(chalk.red(`Process exited with code ${exitCode}`));
+const printOutput = (output: Buffer | Uint8Array): void => {
+  output && console.log(output.toString());
 }
 
-function measure(filePath: string, options: { output: string }) {
+const measure = (filePath: string, options: { output: string }) => {
   const { output = DEFAULT_OUTPUT_PATH } = options;
-  const scriptPath = BUN_SCRIPT_PATH;
   const { stdout, stderr } = Bun.spawnSync(
-    ["bun", scriptPath, filePath, output],
-    {
-      onExit: (_proc, exitCode) => handleExit(exitCode || 0),
-    },
+    ["bun", BUN_SCRIPT_PATH, filePath, output],
+    { onExit: (_proc, exitCode) => handleExit(exitCode || 0) },
   );
-  stdout && console.log(stdout.toString());
-  stderr && console.log(stderr.toString());
-}
+  printOutput(stdout);
+  printOutput(stderr);
+};
 
-function setupProgram() {
+const setupProgram = () => {
   program
     .name("bottleneck-js")
-    .description("use bn to execute")
     .version("1.0.0")
-    .description(
-      "Profiles all JavaScript functions of an input file and generates a report file.",
-    );
-
-  program
+    .description("Profiles all JavaScript functions of an input file and generates a report file.")
     .command("measure <filePath>")
     .description("Measures the execution time of all functions")
-    .option(
-      "-o, --output <outputPath>",
-      "Output file path",
-      DEFAULT_OUTPUT_PATH,
-    )
+    .option("-o, --output <outputPath>", "Output file path", DEFAULT_OUTPUT_PATH)
     .action(measure);
 
   program.parse(process.argv);
-}
+};
 
-function main() {
+const main = () => {
   printBanner();
   setupProgram();
-}
+};
 
 main();
