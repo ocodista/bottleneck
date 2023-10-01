@@ -1,50 +1,39 @@
-# Measurer.js
+# Bottleneck.js
 
-Measurer.js is a CLI tool that profiles all JavaScript functions of an input file and generates a report file. It's built with Node.js and uses the Bun runtime for fast execution.
-
+Bottleneck.js is a CLI tool that profiles custom JavaScript functions of an input file and calculates their execution time. It's built with Node.js and uses the Bun runtime for fast execution.
 
 ## Features
 
-- Measures the execution time of all functions in a JavaScript file
-- Supports both Node.js and Bun runtimes
+- Measures the execution time of custom functions in a JavaScript file
+- Uses the Bun runtime for fast execution
 - Outputs a report file with the profiling results
 
 ## Installation
 
-You can install dependencies with Bun or Node.
+You can install dependencies with Bun.
 
 **bun**:
-```
-bash
+``` bash
 bun install 
-```
-
-**node**:
-```
-bash
-npm install 
 ```
 
 ## Usage
 
+Command: **bn** is a shorthand for bottleneck-js.
+
 To measure the execution time of all functions in a file, use the `measure` command:
 ```bash
-measurer.js measure <filePath>
+bn measure <filePath>
 ```
 
 You can specify the output file path with the `-o` or `--output` option:
 ```bash
-measurer.js measure <filePath> -o <outputPath>
-```
-
-You can specify the runtime to use with the `-r` or `--runtime` option. The default is `node`, but you can also use `bun`:
-```
-measurer.js measure <filePath> -r bun
+bn measure <filePath> -o <outputPath>
 ```
 
 ## Contributing
-Feel free to contribute with Measurer.js if you want.
+Feel free to contribute with Bottleneck.js if you want.
 
 
 ## License
-Measurer.js is licensed under the [MIT License](LICENSE).
+Bottleneck.js is licensed under the [MIT License](LICENSE).

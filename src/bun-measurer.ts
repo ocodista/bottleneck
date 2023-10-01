@@ -93,9 +93,26 @@ function handleNode(node, parent) {
       };
       return isAlreadyAwaited ? callExpression : { type: 'AwaitExpression', argument: callExpression };
     }
+  } else if (node.type === 'ArrowFunctionExpression' && parent.type === 'CallExpression' && parent.callee.property && parent.callee.property.name === 'get') {
+    // This is an Express.js middleware function
+    const middlewareFunctionName = parent.arguments[0].value; // The route path
+    const callExpression = {
+      type: 'CallExpression',
+      callee: {
+        type: 'Identifier',
+        name: 'measureTime',
+      },
+      arguments: [
+        node,
+        {
+          type: 'Literal',
+          value: middlewareFunctionName,
+        },
+      ],
+    };
+    return { type: 'AwaitExpression', argument: callExpression };
   }
 }
-
 function getFunctionName(node) {
   if (node.callee.type === 'Identifier') {
     return node.callee.name;
