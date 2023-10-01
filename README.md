@@ -10,18 +10,23 @@ Bottleneck.js is a CLI tool that profiles custom JavaScript functions of an inpu
 
 ## Installation
 
-You can install dependencies with Bun.
+You can install the CLI globally with:
 
-**bun**:
 ``` bash
-bun install 
+npm i -g .
 ```
 
+Then, to see if it's working you can run:
+```bash
+bn
+```
+
+On your terminal.
+
+**bn** is a shorthand for bottleneck-js.
 ## Usage
-
-Command: **bn** is a shorthand for bottleneck-js.
-
 To measure the execution time of all functions in a file, use the `measure` command:
+
 ```bash
 bn measure <filePath>
 ```
