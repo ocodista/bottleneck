@@ -10,17 +10,13 @@ import { dirname, join } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const NODE_SCRIPT_PATH = join(__dirname, 'node-esm-measurer.ts');
 const BUN_SCRIPT_PATH = join(__dirname, 'bun-measurer.ts');
 
 const DEFAULT_OUTPUT_PATH = 'output.txt';
-const DEFAULT_RUNTIME = 'node';
-const NODE_RUNTIME = 'node';
-
 function printBanner() {
   console.log(
     chalk.green(
-      figlet.textSync('measurer.js', {
+      figlet.textSync('bottleneck-js', {
         horizontalLayout: 'full',
       })
     )
@@ -33,10 +29,10 @@ function handleExit(exitCode: number) {
   }
 }
 
-function measure(filePath: string, options: { output: string, runtime: "node" | "bun" }) {
-  const { output = DEFAULT_OUTPUT_PATH, runtime = DEFAULT_RUNTIME } = options;
-  const scriptPath = runtime === NODE_RUNTIME ? NODE_SCRIPT_PATH : BUN_SCRIPT_PATH;
-  const proc = spawn(runtime, [scriptPath, filePath, output]);
+function measure(filePath: string, options: { output: string }) {
+  const { output = DEFAULT_OUTPUT_PATH } = options;
+  const scriptPath = BUN_SCRIPT_PATH;
+  const proc = spawn("bun", [scriptPath, filePath, output]);
 
   proc.stdout.on('data', (data) => {
     console.log(data.toString());
@@ -48,7 +44,8 @@ function measure(filePath: string, options: { output: string, runtime: "node" | 
 
 function setupProgram() {
   program
-    .name('measurer.js')
+    .name('bottleneck-js')
+    .description("use bn to execute")
     .version('1.0.0')
     .description('Profiles all JavaScript functions of an input file and generates a report file.');
 
@@ -56,7 +53,6 @@ function setupProgram() {
     .command('measure <filePath>')
     .description('Measures the execution time of all functions')
     .option('-o, --output <outputPath>', 'Output file path', DEFAULT_OUTPUT_PATH)
-    .option('-r, --runtime <runtime>', 'Runtime to use', DEFAULT_RUNTIME)
     .action(measure);
 
   program.parse(process.argv);

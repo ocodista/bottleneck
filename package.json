@@ -7,10 +7,7 @@
     "bn": "src/cli.ts"
   },
   "scripts": {
-    "bun-example": "bun src/cli.ts measure -r bun --output output.txt src/example.js",
-    "bun-example-2": "bun src/cli.ts measure -r bun --output output.txt src/example2.js",
-    "node-example": "node src/cli.ts measure -r node --output output.txt src/example.js",
-    "node-example-2": "node src/cli.ts measure -r node --output output.txt src/example2.js"
+    "example": "bun src/cli.ts measure --output output.txt src/example.js"
   },
   "dependencies": {
     "@babel/traverse": "^7.23.0",
