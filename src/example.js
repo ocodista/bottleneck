@@ -7,7 +7,11 @@ function secondFunction() {
   console.log("World");
 }
 
+const thirdFunction = () => {
+  for (let i = 10_000_000; i > 0; i--);
+};
 (async () => {
   await firstFunction();
   secondFunction();
+  thirdFunction();
 })();

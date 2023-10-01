@@ -1,1 +1,1 @@
-[{"name":"firstFunction","duration":2.4006670000000003},{"name":"secondFunction","duration":0.04099999999999948}]
+[{"name":"firstFunction","duration":2003.495375},{"name":"secondFunction","duration":0.1851249999999709},{"name":"thirdFunction","duration":20.958583999999973}]
