@@ -23,22 +23,21 @@ function printBanner() {
 }
 
 function handleExit(exitCode: number) {
-  if (exitCode) {
-    console.log(chalk.red(`Process exited with code ${exitCode}`));
-  }
+  if (!exitCode) return;
+  console.log(chalk.red(`Process exited with code ${exitCode}`));
 }
 
 function measure(filePath: string, options: { output: string }) {
   const { output = DEFAULT_OUTPUT_PATH } = options;
   const scriptPath = BUN_SCRIPT_PATH;
-  const { stdout, stderr } = Bun.spawnSync([
-    "bun",
-    scriptPath,
-    filePath,
-    output,
-  ]);
+  const { stdout, stderr } = Bun.spawnSync(
+    ["bun", scriptPath, filePath, output],
+    {
+      onExit: (_proc, exitCode) => handleExit(exitCode || 0),
+    },
+  );
   stdout && console.log(stdout.toString());
-  stderr && console.log(stderr.toString())
+  stderr && console.log(stderr.toString());
 }
 
 function setupProgram() {
